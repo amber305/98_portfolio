@@ -35,6 +35,7 @@ a:active {
   flex-direction: column;
   padding: 8px;
   width: 120px;
+  margin-left: -20px;
 }
 
 .desktop-icon {

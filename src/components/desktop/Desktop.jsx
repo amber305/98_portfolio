@@ -2,19 +2,25 @@ import React, { useContext } from 'react';
 import DesktopIcon from './DesktopIcon';
 import { WindowContext } from '../../context/WindowContext';
 
-// Placeholder icons - using the bundled react.svg for every desktop icon.  Replace
-// with your own 32×32 images or import individual assets as needed.
-import reactLogo from '../../assets/react.svg';
+// Import actual 32×32 icons for desktop items
+import aboutLogo from '../../assets/icons/aboutMe.png';
+import mediaLogo from '../../assets/icons/mediaPlayer.png';
+import pongLogo from '../../assets/icons/pong.png';
+import notepadLogo from '../../assets/icons/notepad.png';
+import avatarLogo from '../../assets/icons/avatarMaker.png';
+import projectsLogo from '../../assets/icons/projects.png';
+import themesLogo from '../../assets/icons/themes.png';
+import trashLogo from '../../assets/icons/trash.png';
 
 const iconList = [
-  { id: 'about', label: 'About Me', icon: reactLogo, type: 'about' },
-  { id: 'media', label: 'Media Player', icon: reactLogo, type: 'media' },
-  { id: 'pong', label: 'Pong', icon: reactLogo, type: 'pong' },
-  { id: 'notepad', label: 'Notepad Messenger', icon: reactLogo, type: 'notepad' },
-  { id: 'avatar', label: 'Avatar Maker', icon: reactLogo, type: 'avatar' },
-  { id: 'projects', label: 'Projects', icon: reactLogo, type: 'projects' },
-  { id: 'themes', label: 'Themes', icon: reactLogo, type: 'themes' },
-  { id: 'trash', label: 'Trash', icon: reactLogo, type: 'trash' },
+  { id: 'about', label: 'About Me', icon: aboutLogo, type: 'about' },
+  { id: 'media', label: 'Media Player', icon: mediaLogo, type: 'media' },
+  { id: 'pong', label: 'Pong', icon: pongLogo, type: 'pong' },
+  { id: 'notepad', label: 'Notepad', icon: notepadLogo, type: 'notepad' },
+  { id: 'avatar', label: 'Avatar Maker', icon: avatarLogo, type: 'avatar' },
+  { id: 'projects', label: 'Projects', icon: projectsLogo, type: 'projects' },
+  { id: 'themes', label: 'Themes', icon: themesLogo, type: 'themes' },
+  { id: 'trash', label: 'Trash', icon: trashLogo, type: 'trash' },
 ];
 
 const Desktop = () => {
