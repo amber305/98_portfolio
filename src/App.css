@@ -172,6 +172,9 @@ a:active {
   border: 2px outset #fff;
   font-size: 11px;
   cursor: pointer;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 .taskbar .task-items {
@@ -181,4 +184,12 @@ a:active {
 
 .taskbar .tray {
   font-size: 11px;
+}
+
+
+.start-icon {
+  margin-right: 4px;
+  height: 16px;
+  width: 30px;
+  vertical-align: middle;
 }
