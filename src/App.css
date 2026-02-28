@@ -58,6 +58,12 @@ a:active {
   font-size: 11px;
 }
 
+.desktop-icon.selected {
+  background: #00008022; /* light blue overlay */
+  border: 1px solid #000080;
+  border-radius: 4px;
+}
+
 .desktop-center {
   flex: 1;
   display: flex;
