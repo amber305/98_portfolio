@@ -8,6 +8,21 @@ html, body, #root {
   background: #c0c0c0;
 }
 
+@keyframes windowsLoad {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 a {
   color: #000080;        /* or your fixed color */
   text-decoration: none; /* optional */
@@ -26,8 +41,11 @@ a:active {
 }
 
 .desktop {
+  position: relative;
   display: flex;
   height: calc(100% - 25px); /* leave room for taskbar */
+  animation: windowsLoad 0.45s ease-out;
+  animation-fill-mode: forwards;
 }
 
 .desktop-icons {
@@ -198,4 +216,27 @@ a:active {
   height: 16px;
   width: 30px;
   vertical-align: middle;
+}
+
+.context-menu {
+  position: absolute;
+  background: #d4d0c8;
+  border: 1px solid #000;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
+  min-width: 160px;
+  padding: 2px 0;
+  z-index: 1000;
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.context-menu-item {
+  padding: 4px 12px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.context-menu-item:hover {
+  background: #000080;
+  color: #fff;
 }

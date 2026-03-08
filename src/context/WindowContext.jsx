@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react';
 
+/* eslint-disable react-refresh/only-export-components */
+
 // This context will hold the state of open windows and provide helpers
 // for other components (desktop icons, taskbar) to open/close them.
 export const WindowContext = createContext();

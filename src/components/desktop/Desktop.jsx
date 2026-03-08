@@ -26,6 +26,7 @@ const iconList = [
 const Desktop = () => {
   const { openWindow } = useContext(WindowContext);
   const [selectedId, setSelectedId] = React.useState(null);
+  const [contextMenu, setContextMenu] = React.useState({ visible: false, x: 0, y: 0 });
 
   const handleDoubleClick = (item) => {
     openWindow({ title: item.label, type: item.type });
@@ -35,12 +36,36 @@ const Desktop = () => {
     setSelectedId(item.id);
   };
 
+  const closeContextMenu = () => {
+    setContextMenu((prev) => ({ ...prev, visible: false }));
+  };
+
   const clearSelection = () => {
     setSelectedId(null);
+    closeContextMenu();
+  };
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    const menuWidth = 160;
+    const menuHeight = 120;
+    const x = Math.min(e.clientX, window.innerWidth - menuWidth);
+    const y = Math.min(e.clientY, window.innerHeight - menuHeight);
+
+    setSelectedId(null);
+    setContextMenu({ visible: true, x, y });
+  };
+
+  const handleContextMenuItem = (action) => {
+    closeContextMenu();
+    // Placeholder: implement actual actions if desired
+    if (action === 'refresh') {
+      window.location.reload();
+    }
   };
 
   return (
-    <div className="desktop" onClick={clearSelection}>
+    <div className="desktop" onClick={clearSelection} onContextMenu={handleContextMenu}>
       <div className="desktop-icons">
         {iconList.map((item) => (
           <DesktopIcon
@@ -56,6 +81,23 @@ const Desktop = () => {
           />
         ))}
       </div>
+      {contextMenu.visible && (
+        <div
+          className="context-menu"
+          style={{ left: contextMenu.x, top: contextMenu.y }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="context-menu-item" onClick={() => handleContextMenuItem('arrange')}>
+            Arrange Icons
+          </div>
+          <div className="context-menu-item" onClick={() => handleContextMenuItem('refresh')}>
+            Refresh
+          </div>
+          <div className="context-menu-item" onClick={() => handleContextMenuItem('properties')}>
+            Properties
+          </div>
+        </div>
+      )}
       <div className="desktop-center">
         {/* <img
           src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
