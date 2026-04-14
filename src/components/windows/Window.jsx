@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import PongGame from './PongGame';
 import Themes from './Themes';
 import Notepad from './Notepad';
+import AboutMe from './AboutMe';
+import Projects from './Projects';
 
 const WINDOW_WIDTH = 540;
 const WINDOW_HEIGHT = 380;
@@ -60,6 +62,10 @@ const Window = ({ windowData, zIndex, isActive, onFocus, onClose }) => {
         return <Themes windowId={windowData.id} />;
       case 'notepad':
         return <Notepad />;
+      case 'about':
+        return <AboutMe />;
+      case 'projects':
+        return <Projects />;
       default:
         return (
           <div style={{ padding: 12, fontSize: 12 }}>
