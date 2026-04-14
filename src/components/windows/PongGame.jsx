@@ -6,26 +6,47 @@ const BALL_SIZE = 10;
 const SPEED = 4;
 
 const PongGame = () => {
+  const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
   const [score, setScore] = useState({ left: 0, right: 0 });
   const keys = useRef({});
+  const [canvasSize, setCanvasSize] = useState({ width: 540, height: 330 });
 
-  const resetBall = (ball) => {
-    ball.x = 270;
-    ball.y = 180;
+  const resetBall = (ball, width, height) => {
+    ball.x = width / 2;
+    ball.y = height / 2;
     ball.vx = Math.random() > 0.5 ? SPEED : -SPEED;
     ball.vy = (Math.random() * 2 - 1) * SPEED;
   };
+
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        if (entry.target === containerRef.current) {
+          setCanvasSize({
+            width: entry.contentRect.width,
+            height: entry.contentRect.height - 30 // account for controls text
+          });
+        }
+      }
+    });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    const leftPaddle = { x: 20, y: 160 };
-    const rightPaddle = { x: 512, y: 160 };
-    const ball = { x: 270, y: 180, vx: SPEED, vy: SPEED };
+    const leftPaddle = { x: 20, y: canvas.height / 2 - PADDLE_HEIGHT / 2 };
+    const rightPaddle = { x: canvas.width - 20 - PADDLE_WIDTH, y: canvas.height / 2 - PADDLE_HEIGHT / 2 };
+    const ball = { x: canvas.width / 2, y: canvas.height / 2, vx: SPEED, vy: SPEED };
 
     const draw = () => {
       ctx.fillStyle = '#c0c0c0';
@@ -98,11 +119,11 @@ const PongGame = () => {
       // Score
       if (ball.x <= 0) {
         setScore((prev) => ({ ...prev, right: prev.right + 1 }));
-        resetBall(ball);
+        resetBall(ball, canvas.width, canvas.height);
       }
       if (ball.x + BALL_SIZE >= canvas.width) {
         setScore((prev) => ({ ...prev, left: prev.left + 1 }));
-        resetBall(ball);
+        resetBall(ball, canvas.width, canvas.height);
       }
 
       draw();
@@ -120,7 +141,7 @@ const PongGame = () => {
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
 
-    resetBall(ball);
+    resetBall(ball, canvas.width, canvas.height);
     requestRef.current = requestAnimationFrame(update);
 
     return () => {
@@ -128,13 +149,13 @@ const PongGame = () => {
       window.removeEventListener('keyup', handleKeyUp);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [score.left, score.right]);
+  }, [canvasSize, score.left, score.right]);
 
   return (
-    <div className="pong-container" style={{ padding: 12 }}>
-      <canvas ref={canvasRef} width={540} height={330} style={{ display: 'block', background: '#c0c0c0', border: '2px inset #000' }} />
-      <div style={{ marginTop: 8, fontSize: 11 }}>
-        Controls: <strong>W/S</strong> = left paddle, <strong>↑/↓</strong> = right paddle
+    <div className="pong-container" ref={containerRef} style={{ padding: 12, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}>
+      <canvas ref={canvasRef} width={canvasSize.width} height={canvasSize.height} style={{ display: 'block', background: '#c0c0c0', border: '2px inset #000', flex: 1 }} />
+      <div style={{ marginTop: 8, fontSize: 11, flexShrink: 0 }}>
+        Controls: <strong>W/S</strong> = left, <strong>↑/↓</strong> = right
       </div>
     </div>
   );

@@ -421,3 +421,58 @@ a:active {
   border-style: inset;
   background: #d4d0c8;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .desktop-info {
+    display: none;
+  }
+
+  .desktop-center {
+    display: none;
+  }
+
+  .desktop-icons {
+    margin-left: 0;
+    width: 60px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .desktop-icon {
+    margin-bottom: 8px;
+  }
+
+  .desktop-icon img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .desktop-icon span {
+    font-size: 9px;
+    max-width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .taskbar-item {
+    min-width: 40px;
+    max-width: 80px;
+    padding: 2px 4px;
+    font-size: 10px;
+  }
+
+  .taskbar .start-label {
+    display: none;
+  }
+
+  .taskbar .start-button {
+    margin-right: 4px;
+    padding: 2px 4px;
+  }
+
+  .taskbar .start-icon {
+    margin-right: 0;
+    width: 16px;
+  }
+}
