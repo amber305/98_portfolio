@@ -305,3 +305,79 @@ a:active {
   overflow: hidden;
   background: #c0c0c0;
 }
+
+/* Start Menu */
+.start-menu {
+  position: absolute;
+  bottom: 25px; /* above the taskbar */
+  left: 0;
+  width: 200px;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+
+.start-menu-sidebar {
+  width: 30px;
+  background: linear-gradient(to bottom, #000080, #1084d0);
+  position: relative;
+}
+
+.start-menu-sidebar span {
+  position: absolute;
+  bottom: 8px;
+  left: 6px;
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+.start-menu-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+}
+
+.start-menu-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #000;
+}
+
+.start-menu-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.start-menu-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.start-menu-item u {
+  text-decoration: underline;
+}
+
+.start-menu-divider {
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #fff;
+  margin: 2px 0;
+}
+
+.start-button.active {
+  border-style: inset;
+  background: #d4d0c8;
+}

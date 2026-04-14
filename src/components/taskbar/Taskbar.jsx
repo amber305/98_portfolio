@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import startIcon from '../../assets/icons/startButton.png';
+import StartMenu from './StartMenu';
 
 function formatTime(date) {
   let hours = date.getHours();
@@ -13,6 +14,7 @@ function formatTime(date) {
 
 const Taskbar = () => {
   const [time, setTime] = useState(formatTime(new Date()));
+  const [isStartOpen, setIsStartOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,7 +25,11 @@ const Taskbar = () => {
 
   return (
     <div className="taskbar">
-      <div className="start-button">
+      {isStartOpen && <StartMenu onClose={() => setIsStartOpen(false)} />}
+      <div 
+        className={`start-button ${isStartOpen ? 'active' : ''}`}
+        onClick={() => setIsStartOpen(!isStartOpen)}
+      >
         <img src={startIcon} alt="Start" className='start-icon' />
         <span className="start-label">Start</span>
       </div>
