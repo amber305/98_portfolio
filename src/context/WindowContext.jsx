@@ -8,6 +8,7 @@ export const WindowContext = createContext();
 
 export const WindowProvider = ({ children }) => {
   const [windows, setWindows] = useState([]);
+  const [background, setBackground] = useState({ type: 'color', value: '#c0c0c0' });
 
   const openWindow = (windowData) => {
     setWindows((prev) => [...prev, { id: Date.now(), ...windowData }]);
@@ -18,7 +19,7 @@ export const WindowProvider = ({ children }) => {
   };
 
   return (
-    <WindowContext.Provider value={{ windows, openWindow, closeWindow }}>
+    <WindowContext.Provider value={{ windows, openWindow, closeWindow, background, setBackground }}>
       {children}
     </WindowContext.Provider>
   );

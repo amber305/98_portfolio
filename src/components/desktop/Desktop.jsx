@@ -24,7 +24,7 @@ const iconList = [
 ];
 
 const Desktop = () => {
-  const { openWindow } = useContext(WindowContext);
+  const { openWindow, background } = useContext(WindowContext);
   const [selectedId, setSelectedId] = React.useState(null);
   const [contextMenu, setContextMenu] = React.useState({ visible: false, x: 0, y: 0 });
 
@@ -64,8 +64,23 @@ const Desktop = () => {
     }
   };
 
+  const desktopStyle = {};
+  if (background) {
+    if (background.type === 'color') {
+      desktopStyle.backgroundColor = background.value;
+      desktopStyle.backgroundImage = 'none';
+    } else if (background.type === 'image') {
+      desktopStyle.backgroundImage = `url(${background.value})`;
+      desktopStyle.backgroundSize = 'cover';
+      desktopStyle.backgroundPosition = 'center';
+      desktopStyle.backgroundColor = '#c0c0c0'; // fallback
+    } else if (background.type === 'gradient') {
+      desktopStyle.backgroundImage = background.value;
+    }
+  }
+
   return (
-    <div className="desktop" onClick={clearSelection} onContextMenu={handleContextMenu}>
+    <div className="desktop" style={desktopStyle} onClick={clearSelection} onContextMenu={handleContextMenu}>
       <div className="desktop-icons">
         {iconList.map((item) => (
           <DesktopIcon
