@@ -1,9 +1,11 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { WindowContext } from '../../context/WindowContext';
 import Window from './Window';
+import ShutdownDialog from './ShutdownDialog';
+import ShutDownScreen from './ShutDownScreen';
 
 const WindowManager = () => {
-  const { windows, closeWindow, activeWindowId, focusWindow } = useContext(WindowContext);
+  const { windows, closeWindow, activeWindowId, focusWindow, shutdownStage } = useContext(WindowContext);
 
   // Keep windows stacked with the most recently opened or focused on top.
   const orderedWindows = useMemo(() => {
@@ -31,6 +33,9 @@ const WindowManager = () => {
           onClose={() => closeWindow(windowData.id)}
         />
       ))}
+      
+      {shutdownStage === 'counting' && <ShutdownDialog />}
+      {shutdownStage === 'off' && <ShutDownScreen />}
     </>
   );
 };

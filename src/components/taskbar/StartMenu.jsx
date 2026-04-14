@@ -7,7 +7,7 @@ import themesLogo from '../../assets/icons/themes.png';
 
 const StartMenu = ({ onClose }) => {
   const menuRef = useRef();
-  const { openWindow } = useContext(WindowContext);
+  const { openWindow, initiateShutdown } = useContext(WindowContext);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -27,6 +27,11 @@ const StartMenu = ({ onClose }) => {
 
   const handleAlert = (msg) => {
     alert(msg);
+    onClose();
+  };
+
+  const handleShutDown = () => {
+    initiateShutdown();
     onClose();
   };
 
@@ -56,7 +61,7 @@ const StartMenu = ({ onClose }) => {
           <u>R</u>un...
         </div>
         <div className="start-menu-divider"></div>
-        <div className="start-menu-item" onClick={() => handleAlert('It is now safe to turn off your computer.')}>
+        <div className="start-menu-item" onClick={handleShutDown}>
           Sh<u>u</u>t Down...
         </div>
       </div>
