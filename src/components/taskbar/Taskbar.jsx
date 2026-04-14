@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import startIcon from '../../assets/icons/startButton.png';
 import StartMenu from './StartMenu';
+import { WindowContext } from '../../context/WindowContext';
 
 function formatTime(date) {
   let hours = date.getHours();
@@ -15,6 +16,7 @@ function formatTime(date) {
 const Taskbar = () => {
   const [time, setTime] = useState(formatTime(new Date()));
   const [isStartOpen, setIsStartOpen] = useState(false);
+  const { windows, activeWindowId, focusWindow } = useContext(WindowContext);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -33,7 +35,17 @@ const Taskbar = () => {
         <img src={startIcon} alt="Start" className='start-icon' />
         <span className="start-label">Start</span>
       </div>
-      <div className="task-items"></div>
+      <div className="task-items">
+        {windows.map((w) => (
+          <div 
+            key={w.id} 
+            className={`taskbar-item ${activeWindowId === w.id ? 'active' : ''}`}
+            onClick={() => focusWindow(w.id)}
+          >
+            {w.title}
+          </div>
+        ))}
+      </div>
       <div className="tray">{time}</div>
     </div>
   );

@@ -3,8 +3,7 @@ import { WindowContext } from '../../context/WindowContext';
 import Window from './Window';
 
 const WindowManager = () => {
-  const { windows, closeWindow } = useContext(WindowContext);
-  const [activeWindowId, setActiveWindowId] = useState(null);
+  const { windows, closeWindow, activeWindowId, focusWindow } = useContext(WindowContext);
 
   // Keep windows stacked with the most recently opened or focused on top.
   const orderedWindows = useMemo(() => {
@@ -28,7 +27,7 @@ const WindowManager = () => {
           windowData={windowData}
           zIndex={100 + index}
           isActive={windowData.id === activeWindowId || (!activeWindowId && index === orderedWindows.length - 1)}
-          onFocus={() => setActiveWindowId(windowData.id)}
+          onFocus={() => focusWindow(windowData.id)}
           onClose={() => closeWindow(windowData.id)}
         />
       ))}

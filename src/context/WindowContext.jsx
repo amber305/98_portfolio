@@ -8,18 +8,28 @@ export const WindowContext = createContext();
 
 export const WindowProvider = ({ children }) => {
   const [windows, setWindows] = useState([]);
+  const [activeWindowId, setActiveWindowId] = useState(null);
   const [background, setBackground] = useState({ type: 'color', value: '#c0c0c0' });
 
   const openWindow = (windowData) => {
-    setWindows((prev) => [...prev, { id: Date.now(), ...windowData }]);
+    const id = Date.now();
+    setWindows((prev) => [...prev, { id, ...windowData }]);
+    setActiveWindowId(id);
   };
 
   const closeWindow = (id) => {
     setWindows((prev) => prev.filter((w) => w.id !== id));
+    if (activeWindowId === id) {
+      setActiveWindowId(null);
+    }
+  };
+
+  const focusWindow = (id) => {
+    setActiveWindowId(id);
   };
 
   return (
-    <WindowContext.Provider value={{ windows, openWindow, closeWindow, background, setBackground }}>
+    <WindowContext.Provider value={{ windows, openWindow, closeWindow, background, setBackground, activeWindowId, focusWindow }}>
       {children}
     </WindowContext.Provider>
   );
